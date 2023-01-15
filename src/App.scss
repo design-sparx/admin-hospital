@@ -1,9 +1,37 @@
 /* The following block can be included in a custom.scss */
-
-/* make the customizations */
-$theme-colors: (
-  //"info": tomato,
-  //"danger": teal
-);
-
 @import "~bootstrap/scss/bootstrap";
+
+$card-box-shadow: $box-shadow-sm;
+
+body {
+  overflow-x: hidden;
+}
+
+.main {
+  border-left: 1px solid var(--bs-gray-300);
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .075);
+  -moz-box-shadow: 0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .075);
+  -webkit-box-shadow: 0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .075);
+
+  .card-header {
+    background-color: white;
+    text-transform: capitalize;
+    padding: 1rem 1rem;
+  }
+
+  .card-title, .card-text {
+    text-transform: capitalize;
+  }
+}
+
+.top-nav {
+  background-color: white;
+}
