@@ -7,7 +7,7 @@
   &:hover,
   &:focus {
     color: rgba(0, 0, 0, .85);
-    background-color: #d2f4ea;
+    background-color: #e1e1e1;
   }
 
   &::before {
@@ -34,6 +34,33 @@
 
   &:hover,
   &:focus {
-    background-color: #d2f4ea;
+    background-color: #e1e1e1;
+  }
+}
+
+.btn-link {
+  color: black !important;
+}
+
+.active.btn {
+  background-color: #1bcacd;
+}
+
+.navbar {
+  .dropstart .dropdown-toggle::before {
+    content: none;
+  }
+
+  .search-box {
+    .form-control {
+      border-left: none;
+    }
+  }
+
+  .dropdown-menu {
+    box-shadow: var(--bs-dropdown-box-shadow);
+    -moz-box-shadow: var(--bs-dropdown-box-shadow);
+    -webkit-box-shadow: var(--bs-dropdown-box-shadow);
+    border: none;
   }
 }

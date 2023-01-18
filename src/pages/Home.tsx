@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Card, Col, Form, Image, ListGroup, ProgressBar, Row, Table} from 'react-bootstrap';
+import {Breadcrumb, Card, Col, Form, Image, ProgressBar, Row, Table} from 'react-bootstrap';
 import {
   BarElement,
   CategoryScale,
@@ -20,11 +20,13 @@ import {format, formatDistance, subDays} from 'date-fns';
 import useEmblaCarousel, {EmblaOptionsType} from 'embla-carousel-react';
 import {PersonBoundingBox, PersonHeart, PersonHearts, PersonPlusFill} from "react-bootstrap-icons";
 import CountUp from "react-countup";
-import Autoplay from 'embla-carousel-autoplay'
+import Autoplay from 'embla-carousel-autoplay';
+import {LinkContainer} from "react-router-bootstrap";
 import {StaffCard} from "../components/staff-card";
 import {DotButton, NextButton, PrevButton} from "../components/embla-carousel-controls";
 
 import "../assets/css/embla.scss";
+import {RecentTimeline} from "../components/recent-timeline";
 
 ChartJS.register(
   CategoryScale,
@@ -106,7 +108,20 @@ export const RecoverData = {
   ],
 };
 
-const PATIENTROWS = Array.from({length: 12}).map(() => createRandomUser());
+export const BookingsData = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: 'Dataset 3',
+      data: labels.map(() => faker.datatype.number({min: 10, max: 100})),
+      borderColor: 'rgb(235,53,232)',
+      backgroundColor: 'rgba(235,53,193,0.5)',
+    },
+  ],
+};
+
+const PATIENTROWS = Array.from({length: 10}).map(() => createRandomUser());
 const STAFFROWS = Array.from({length: 12}).map(() => createRandomUser());
 
 const OPTIONS: EmblaOptionsType = {
@@ -173,15 +188,24 @@ const Home = (): JSX.Element => {
   return (
     <div>
       <Wrapper>
+        <section className="section d-flex justify-content-between">
+          <p className="h5">Dashboard</p>
+          <Breadcrumb>
+            <LinkContainer to="/">
+              <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+            </LinkContainer>
+            <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
+          </Breadcrumb>
+        </section>
         <section className="section">
           <Row xs={1} md={2} lg={4} className="g-4">
             <Col>
               <Card>
                 <Card.Body className="d-flex align-items-center gap-4">
-                  <PersonHeart size={64}/>
+                  <PersonHeart size={64} className="text-danger"/>
                   <div>
-                    <p className="h2"><CountUp end={usersCount}/></p>
-                    <Card.Text>doctors</Card.Text>
+                    <p className="h3"><CountUp end={usersCount}/></p>
+                    <Card.Text>total doctors</Card.Text>
                   </div>
                 </Card.Body>
               </Card>
@@ -189,10 +213,10 @@ const Home = (): JSX.Element => {
             <Col>
               <Card>
                 <Card.Body className="d-flex align-items-center gap-4">
-                  <PersonHearts size={64}/>
+                  <PersonHearts size={64} className="text-warning"/>
                   <div>
-                    <p className="h2"><CountUp end={usersCount * 2}/></p>
-                    <Card.Text>nurses</Card.Text>
+                    <p className="h3"><CountUp end={usersCount * 2}/></p>
+                    <Card.Text>total nurses</Card.Text>
                   </div>
                 </Card.Body>
               </Card>
@@ -200,10 +224,10 @@ const Home = (): JSX.Element => {
             <Col>
               <Card>
                 <Card.Body className="d-flex align-items-center gap-4">
-                  <PersonPlusFill size={64}/>
+                  <PersonPlusFill size={64} className="text-success"/>
                   <div>
-                    <p className="h2"><CountUp end={usersCount * 3}/></p>
-                    <Card.Text>pharmacists</Card.Text>
+                    <p className="h3"><CountUp end={usersCount * 3}/></p>
+                    <Card.Text>total pharmacists</Card.Text>
                   </div>
                 </Card.Body>
               </Card>
@@ -211,10 +235,10 @@ const Home = (): JSX.Element => {
             <Col>
               <Card>
                 <Card.Body className="d-flex align-items-center gap-4">
-                  <PersonBoundingBox size={64}/>
+                  <PersonBoundingBox size={64} className="text-info"/>
                   <div>
-                    <p className="h2"><CountUp end={usersCount * 5}/></p>
-                    <Card.Text>patients</Card.Text>
+                    <p className="h3"><CountUp end={usersCount * 5}/></p>
+                    <Card.Text>total patients</Card.Text>
                   </div>
                 </Card.Body>
               </Card>
@@ -229,19 +253,19 @@ const Home = (): JSX.Element => {
             <Card.Body>
               <Row>
                 <Col className="text-center text-capitalize">
-                  <p className="h3">$<CountUp end={incomeCount}/></p>
+                  <p className="h4">$<CountUp end={incomeCount}/></p>
                   <p>today&apos;s income</p>
                 </Col>
                 <Col className="text-center text-capitalize">
-                  <p className="h3">$<CountUp end={incomeCount * 3}/></p>
+                  <p className="h4">$<CountUp end={incomeCount * 3}/></p>
                   <p>this week&apos;s income</p>
                 </Col>
                 <Col className="text-center text-capitalize">
-                  <p className="h3">$<CountUp end={incomeCount * 7}/></p>
+                  <p className="h4">$<CountUp end={incomeCount * 7}/></p>
                   <p>this month&apos;s income</p>
                 </Col>
                 <Col className="text-center text-capitalize">
-                  <p className="h3">$<CountUp end={incomeCount * 9}/></p>
+                  <p className="h4">$<CountUp end={incomeCount * 9}/></p>
                   <p>this year&apos;s income</p>
                 </Col>
               </Row>
@@ -253,46 +277,13 @@ const Home = (): JSX.Element => {
         </section>
         <section className="section">
           <Row>
-            <Col lg={8}>
-              <Card>
-                <Card.Header className="d-flex align-items-center justify-content-between">
-                  <Card.Title>Patients</Card.Title>
-                  <Form.Group>
-                    <Form.Label className="visually-hidden">Search</Form.Label>
-                    <Form.Control type="text" placeholder="search patients..."/>
-                  </Form.Group>
-                </Card.Header>
-                <Table hover>
-                  <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Sex</th>
-                    <th>Appointment Date</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {PATIENTROWS.map((_, i) => (
-                    <tr key={`p-${i}`}>
-                      <td className="d-flex align-items-center gap-3">
-                        <Image src={_.avatar} height={32} width={32} fluid roundedCircle/>
-                        {_.firstName}&nbsp;{_.lastName}</td>
-                      <td><a href={`mailto:${_.email}`} className="text-lowercase">{_.email}</a></td>
-                      <td className="text-capitalize">{_.sex}</td>
-                      <td>{format(_.appointmentDate, 'MM/dd/yyyy')}</td>
-                    </tr>
-                  ))}
-                  </tbody>
-                </Table>
-              </Card>
-            </Col>
-            <Col lg={4}>
+            <Col>
               <Card>
                 <Card.Header>
                   <p className="h5">total bookings</p>
                 </Card.Header>
                 <Card.Body>
-                  <Line options={RecoverOptions} data={RecoverData}/>
+                  <Line options={RecoverOptions} data={BookingsData}/>
                   <Row>
                     <Col className="text-center">
                       <p className="mb-1">Last month</p>
@@ -305,7 +296,9 @@ const Home = (): JSX.Element => {
                   </Row>
                 </Card.Body>
               </Card>
-              <Card className="mt-4">
+            </Col>
+            <Col>
+              <Card>
                 <Card.Header>
                   <p className="h5">total patients</p>
                 </Card.Header>
@@ -325,6 +318,41 @@ const Home = (): JSX.Element => {
               </Card>
             </Col>
           </Row>
+        </section>
+        <section className="section">
+          <Card>
+            <Card.Header className="d-flex align-items-center justify-content-between">
+              <Card.Title>Patients</Card.Title>
+              <Form.Group>
+                <Form.Label className="visually-hidden">Search</Form.Label>
+                <Form.Control type="text" placeholder="search patients..."/>
+              </Form.Group>
+            </Card.Header>
+            <Card.Body>
+              <Table hover striped>
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Sex</th>
+                  <th>Appointment Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {PATIENTROWS.map((_, i) => (
+                  <tr key={`p-${i}`}>
+                    <td className="d-flex align-items-center gap-3">
+                      <Image src={_.avatar} height={32} width={32} fluid roundedCircle/>
+                      {_.firstName}&nbsp;{_.lastName}</td>
+                    <td><a href={`mailto:${_.email}`} className="text-lowercase">{_.email}</a></td>
+                    <td className="text-capitalize">{_.sex}</td>
+                    <td>{format(_.appointmentDate, 'MM/dd/yyyy')}</td>
+                  </tr>
+                ))}
+                </tbody>
+              </Table>
+            </Card.Body>
+          </Card>
         </section>
         <section className="section">
           <Card>
@@ -360,28 +388,12 @@ const Home = (): JSX.Element => {
         <section className="section">
           <Row>
             <Col>
-              <Card>
-                <Card.Header>
-                  <Card.Title>Recent activity</Card.Title>
-                </Card.Header>
-                <ListGroup variant="flush">
-                  {Array.from({length: 5}).map(() => (
-                    <ListGroup.Item key={faker.datatype.uuid()} action>
-                      <div className="d-flex w-100 justify-content-between">
-                        <p className="h6 mb-1">Lorem ipsum dolor sit amet</p>
-                        <p className="small mb-1">{notificationsDate}</p>
-                      </div>
-                      <p className="mb-1 small">Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Duis
-                        aute irure dolor in reprehenderit.</p>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              </Card>
+              <RecentTimeline notificationsDate={notificationsDate} data={Array.from({length: 5})}/>
             </Col>
             <Col>
               <Card>
                 <Card.Header>
-                  <Card.Title>Traffic</Card.Title>
+                  <Card.Title>Usage</Card.Title>
                 </Card.Header>
                 <Card.Body>
                   <div className="d-grid gap-3">
