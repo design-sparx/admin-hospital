@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Breadcrumb, Card, Col, Form, Image, ProgressBar, Row, Table} from 'react-bootstrap';
+import {Breadcrumb, Button, Card, Col, Form, Image, ProgressBar, Row, Table} from 'react-bootstrap';
 import {
   BarElement,
   CategoryScale,
@@ -18,15 +18,23 @@ import Wrapper from '../layout';
 import {createRandomUser} from "../utils";
 import {format, formatDistance, subDays} from 'date-fns';
 import useEmblaCarousel, {EmblaOptionsType} from 'embla-carousel-react';
-import {PersonBoundingBox, PersonHeart, PersonHearts, PersonPlusFill} from "react-bootstrap-icons";
+import {Helmet} from 'react-helmet';
+import {
+  ArrowLeftCircle,
+  ArrowRightCircle,
+  PersonBoundingBox,
+  PersonHeart,
+  PersonHearts,
+  PersonPlusFill
+} from "react-bootstrap-icons";
 import CountUp from "react-countup";
 import Autoplay from 'embla-carousel-autoplay';
 import {LinkContainer} from "react-router-bootstrap";
 import {StaffCard} from "../components/staff-card";
-import {DotButton, NextButton, PrevButton} from "../components/embla-carousel-controls";
+import {DotButton} from "../components/embla-carousel-controls";
+import {RecentTimeline} from "../components/recent-timeline";
 
 import "../assets/css/embla.scss";
-import {RecentTimeline} from "../components/recent-timeline";
 
 ChartJS.register(
   CategoryScale,
@@ -187,6 +195,9 @@ const Home = (): JSX.Element => {
 
   return (
     <div>
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
       <Wrapper>
         <section className="section d-flex justify-content-between">
           <p className="h5">Dashboard</p>
@@ -198,10 +209,10 @@ const Home = (): JSX.Element => {
           </Breadcrumb>
         </section>
         <section className="section">
-          <Row xs={1} md={2} lg={4} className="g-4">
+          <Row md={2} lg={4} className="g-3 g-md-4">
             <Col>
-              <Card>
-                <Card.Body className="d-flex align-items-center gap-4">
+              <Card className="h-100">
+                <Card.Body className="d-flex align-items-center gap-3 gap-md-4">
                   <PersonHeart size={64} className="text-danger"/>
                   <div>
                     <p className="h3"><CountUp end={usersCount}/></p>
@@ -211,8 +222,8 @@ const Home = (): JSX.Element => {
               </Card>
             </Col>
             <Col>
-              <Card>
-                <Card.Body className="d-flex align-items-center gap-4">
+              <Card className="h-100">
+                <Card.Body className="d-flex align-items-center gap-3 gap-md-4">
                   <PersonHearts size={64} className="text-warning"/>
                   <div>
                     <p className="h3"><CountUp end={usersCount * 2}/></p>
@@ -222,8 +233,8 @@ const Home = (): JSX.Element => {
               </Card>
             </Col>
             <Col>
-              <Card>
-                <Card.Body className="d-flex align-items-center gap-4">
+              <Card className="h-100">
+                <Card.Body className="d-flex align-items-center gap-3 gap-md-4">
                   <PersonPlusFill size={64} className="text-success"/>
                   <div>
                     <p className="h3"><CountUp end={usersCount * 3}/></p>
@@ -233,8 +244,8 @@ const Home = (): JSX.Element => {
               </Card>
             </Col>
             <Col>
-              <Card>
-                <Card.Body className="d-flex align-items-center gap-4">
+              <Card className="h-100">
+                <Card.Body className="d-flex align-items-center gap-3 gap-md-4">
                   <PersonBoundingBox size={64} className="text-info"/>
                   <div>
                     <p className="h3"><CountUp end={usersCount * 5}/></p>
@@ -252,19 +263,19 @@ const Home = (): JSX.Element => {
             </Card.Header>
             <Card.Body>
               <Row>
-                <Col className="text-center text-capitalize">
+                <Col xs={6} md={6} lg={3} className="text-center text-capitalize">
                   <p className="h4">$<CountUp end={incomeCount}/></p>
                   <p>today&apos;s income</p>
                 </Col>
-                <Col className="text-center text-capitalize">
+                <Col xs={6} md={6} lg={3} className="text-center text-capitalize">
                   <p className="h4">$<CountUp end={incomeCount * 3}/></p>
                   <p>this week&apos;s income</p>
                 </Col>
-                <Col className="text-center text-capitalize">
+                <Col xs={6} md={6} lg={3} className="text-center text-capitalize">
                   <p className="h4">$<CountUp end={incomeCount * 7}/></p>
                   <p>this month&apos;s income</p>
                 </Col>
-                <Col className="text-center text-capitalize">
+                <Col xs={6} md={6} lg={3} className="text-center text-capitalize">
                   <p className="h4">$<CountUp end={incomeCount * 9}/></p>
                   <p>this year&apos;s income</p>
                 </Col>
@@ -297,7 +308,7 @@ const Home = (): JSX.Element => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
+            <Col className="mt-4 mt-md-0">
               <Card>
                 <Card.Header>
                   <p className="h5">total patients</p>
@@ -328,8 +339,8 @@ const Home = (): JSX.Element => {
                 <Form.Control type="text" placeholder="search patients..."/>
               </Form.Group>
             </Card.Header>
-            <Card.Body>
-              <Table hover striped>
+            <Card.Body className="p-0">
+              <Table responsive hover striped className="align-middle">
                 <thead>
                 <tr>
                   <th>Name</th>
@@ -356,8 +367,18 @@ const Home = (): JSX.Element => {
         </section>
         <section className="section">
           <Card>
-            <Card.Header>
+            <Card.Header className="d-flex align-items-center justify-content-between">
               <Card.Title>Staff</Card.Title>
+              <div className="d-flex gap-3">
+                <Button onClick={scrollPrev} disabled={!prevBtnEnabled} variant="light">
+                  <ArrowLeftCircle className="me-2"/>
+                  <span>Previous</span>
+                </Button>
+                <Button onClick={scrollNext} disabled={!nextBtnEnabled} variant="light">
+                  <span>Next</span>
+                  <ArrowRightCircle className="ms-2"/>
+                </Button>
+              </div>
             </Card.Header>
             <Card.Body>
               <div className="embla">
@@ -370,8 +391,6 @@ const Home = (): JSX.Element => {
                     ))}
                   </div>
                 </div>
-                <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled}/>
-                <NextButton onClick={scrollNext} enabled={nextBtnEnabled}/>
               </div>
               <div className="embla__dots">
                 {scrollSnaps.map((_, index) => (
@@ -387,10 +406,10 @@ const Home = (): JSX.Element => {
         </section>
         <section className="section">
           <Row>
-            <Col>
+            <Col xs={12} md={6}>
               <RecentTimeline notificationsDate={notificationsDate} data={Array.from({length: 5})}/>
             </Col>
-            <Col>
+            <Col xs={12} md={6} className="mt-4 mt-md-0">
               <Card>
                 <Card.Header>
                   <Card.Title>Usage</Card.Title>

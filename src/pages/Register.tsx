@@ -18,7 +18,7 @@ const Register = () => {
           </Breadcrumb>
         </section>
         <section className="section">
-          <Card className="col-7 mx-auto">
+          <Card className="col-sm-12 col-md-8 col-lg-7 mx-auto">
             <Card.Header>
               <p className="h5">register</p>
             </Card.Header>
@@ -43,7 +43,7 @@ const Register = () => {
                     <Form.Control type="password" placeholder="Password"/>
                   </FloatingLabel>
                   <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out"/>
+                    <Form.Check type="checkbox" label="I agree with the Terms & Conditions"/>
                   </Form.Group>
                   <Button variant="primary" type="submit" className="w-100">Login</Button>
                 </Form>

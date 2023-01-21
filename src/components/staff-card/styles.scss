@@ -1,0 +1,10 @@
+.staff-card.card {
+  border: 2px solid transparent;
+
+  &:hover,
+  &:focus {
+    background-color: var(--bs-light);
+    cursor: pointer;
+    border-color: var(--bs-primary);
+  }
+}

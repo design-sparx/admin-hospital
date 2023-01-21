@@ -17,7 +17,7 @@ const ResetPassword = () => {
           </Breadcrumb>
         </section>
         <section className="section">
-          <Card className="col-7 mx-auto">
+          <Card className="col-sm-12 col-md-8 col-lg-7 mx-auto">
             <Card.Header>
               <p className="h5">reset password</p>
             </Card.Header>
