@@ -1,0 +1,41 @@
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+
+  &:before {
+    content: ' ';
+    background: var(--bs-gray-200);
+    display: inline-block;
+    position: absolute;
+    left: 25px;
+    width: 2px;
+    height: 100%;
+    z-index: 400;
+  }
+
+  & > li {
+    padding: .5rem 1rem;
+
+    &:before {
+      content: ' ';
+      display: inline-block;
+      position: absolute;
+      border-radius: 50%;
+      background-color: var(--bs-primary);
+      left: 20px;
+      width: .75rem;
+      height: .75rem;
+      z-index: 400;
+      margin-top: .45rem;
+    }
+
+    a {
+      color: var(--bs-dark);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: var(--bs-light);
+    }
+  }
+}
