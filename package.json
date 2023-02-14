@@ -1,6 +1,7 @@
 {
   "name": "admin-hospital",
   "description": "An hospital admin dashboard",
+  "author": "Kelvin Kiptum Kiprop <kelvin.kiprop96@gmail.com>",
   "version": "0.1.0",
   "private": false,
   "homepage": "https://kelvink96ltd.github.io/admin-hospital",
@@ -10,6 +11,7 @@
     "bootstrap",
     "dashboard"
   ],
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
